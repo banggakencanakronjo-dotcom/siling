@@ -2,14 +2,14 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$host = getenv('MYSQLHOST') ?: 'mysql.railway.internal';
+// Deteksi otomatis apakah berjalan di Railway atau Lokal (XAMPP)
+$host = getenv('MYSQLHOST') ?: 'localhost';
 $port = getenv('MYSQLPORT') ?: '3306';
 $user = getenv('MYSQLUSER') ?: 'root';
-$pass = getenv('MYSQLPASSWORD') ?: 'gRmcnMLLwdzFsLCBaAbIBhmsyMbzCa';
-$db   = getenv('MYSQLDATABASE') ?: 'railway';
+$pass = getenv('MYSQLPASSWORD') ?: '';
+$db   = getenv('MYSQLDATABASE') ?: 'db_dppkbsiling';
 
-$conn = mysqli_connect($host, $user, $pass, $db, $port);
-// Jika Railway menyediakan URL koneksi gabungan
+// Jika Railway menyediakan URL koneksi gabungan (DATABASE_URL / MYSQL_URL)
 $database_url = getenv('DATABASE_URL') ?: getenv('MYSQL_URL');
 if ($database_url) {
     $parsed_url = parse_url($database_url);
